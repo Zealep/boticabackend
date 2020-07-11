@@ -1,0 +1,47 @@
+package com.zealep.api.salesbackend.service.impl;
+
+import com.zealep.api.salesbackend.model.entity.Empleado;
+import com.zealep.api.salesbackend.repository.EmpleadoRepository;
+import com.zealep.api.salesbackend.service.EmpleadoService;
+import com.zealep.api.salesbackend.util.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service("empleadoService")
+public class EmpleadoServiceImpl implements EmpleadoService {
+
+    @Autowired
+    EmpleadoRepository empleadoRepository;
+
+    @Override
+    @Transactional(readOnly = true)
+    public Empleado findById(Long id) {
+        return empleadoRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Empleado> findAll() {
+        return empleadoRepository.findAllActives(Constants.ACTIVE_STATE);
+    }
+
+    @Override
+    @Transactional
+    public Empleado save(Empleado e) {
+        e.setEstado(Constants.ACTIVE_STATE);
+        return empleadoRepository.save(e);
+    }
+
+    @Override
+    public void delete(Long id) {
+        empleadoRepository.deleteLogic(id,Constants.INACTIVE_STATE);
+    }
+
+    @Override
+    public boolean isExist(Long id) {
+        return findById(id)!=null;
+    }
+}
