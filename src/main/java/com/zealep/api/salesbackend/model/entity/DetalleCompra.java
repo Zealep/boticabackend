@@ -12,7 +12,7 @@ public class DetalleCompra implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_detalle_compra")
-    private Long id_detalle_compra;
+    private Long idDetalleCompra;
 
     @JsonIgnore
     @ManyToOne
@@ -35,12 +35,13 @@ public class DetalleCompra implements Serializable {
     @Column(name = "total")
     private double total;
 
-    public Long getId_detalle_compra() {
-        return id_detalle_compra;
+
+    public Long getIdDetalleCompra() {
+        return idDetalleCompra;
     }
 
-    public void setId_detalle_compra(Long id_detalle_compra) {
-        this.id_detalle_compra = id_detalle_compra;
+    public void setIdDetalleCompra(Long idDetalleCompra) {
+        this.idDetalleCompra = idDetalleCompra;
     }
 
     public Compra getCompra() {
