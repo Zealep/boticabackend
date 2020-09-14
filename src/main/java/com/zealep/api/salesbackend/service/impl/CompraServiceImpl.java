@@ -2,6 +2,7 @@ package com.zealep.api.salesbackend.service.impl;
 
 import com.zealep.api.salesbackend.model.entity.Compra;
 import com.zealep.api.salesbackend.repository.CompraRepository;
+import com.zealep.api.salesbackend.repository.ProductoRepository;
 import com.zealep.api.salesbackend.service.CompraService;
 import com.zealep.api.salesbackend.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class CompraServiceImpl implements CompraService {
 
     @Autowired
     CompraRepository compraRepository;
+
+    @Autowired
+    ProductoServiceImpl productoService;
+
+
 
     @Transactional(readOnly = true)
     @Override
@@ -32,7 +38,10 @@ public class CompraServiceImpl implements CompraService {
     @Override
     public Compra save(Compra c) {
         c.setEstado(Constants.ACTIVE_STATE);
-        c.getDetallesCompra().forEach(x -> x.setCompra(c));
+        c.getDetallesCompra().forEach(x ->{
+            x.setCompra(c);
+            productoService.incrementStock(x.getCantidad(),x.getProducto().getIdProducto());
+        });
         return compraRepository.save(c);
     }
 

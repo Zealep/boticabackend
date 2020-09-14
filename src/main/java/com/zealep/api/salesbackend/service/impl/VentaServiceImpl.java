@@ -3,7 +3,6 @@ package com.zealep.api.salesbackend.service.impl;
 import com.zealep.api.salesbackend.model.entity.Venta;
 import com.zealep.api.salesbackend.repository.VentaRepository;
 import com.zealep.api.salesbackend.service.VentaService;
-import com.zealep.api.salesbackend.service.VentaService;
 import com.zealep.api.salesbackend.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,9 @@ public class VentaServiceImpl implements VentaService {
 
     @Autowired
     VentaRepository ventaRepository;
+
+    @Autowired
+    ProductoServiceImpl productoService;
 
     @Transactional(readOnly = true)
     @Override
@@ -33,7 +35,10 @@ public class VentaServiceImpl implements VentaService {
     @Override
     public Venta save(Venta v) {
         v.setEstado(Constants.ACTIVE_STATE);
-        v.getDetallesVenta().forEach(x -> x.setVenta(v));
+        v.getDetallesVenta().forEach(x -> {
+            x.setVenta(v);
+            productoService.decrementStock(x.getCantidad(),x.getProducto().getIdProducto());
+        });
         return ventaRepository.save(v);
     }
 

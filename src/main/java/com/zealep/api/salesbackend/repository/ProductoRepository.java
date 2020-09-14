@@ -16,4 +16,9 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     @Modifying
     @Query(value = "update Producto p set p.estado=?2 where p.idProducto=?1")
     void deleteLogic(Long id,String estado);
+
+    @Modifying
+    @Query(value= "update Producto p set p.stock=?1 where p.idProducto=?2")
+    void updateStock(double amount,Long idProducto);
+
 }

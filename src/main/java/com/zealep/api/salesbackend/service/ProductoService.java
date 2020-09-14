@@ -17,4 +17,8 @@ public interface ProductoService {
 
     boolean isExist(Long id);
 
+    void incrementStock(double stock,Long idProducto);
+
+    void decrementStock(double stock,Long idProducto);
+
 }

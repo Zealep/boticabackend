@@ -1,6 +1,7 @@
 package com.zealep.api.salesbackend.service.impl;
 
 
+import com.zealep.api.salesbackend.exception.NotFoundException;
 import com.zealep.api.salesbackend.model.entity.Producto;
 import com.zealep.api.salesbackend.repository.ProductoRepository;
 import com.zealep.api.salesbackend.service.ProductoService;
@@ -45,5 +46,33 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public boolean isExist(Long id) {
         return findById(id)!=null;
+    }
+
+    @Override
+    public void incrementStock(double stock, Long idProducto) {
+
+        Producto p = productoRepository.findById(idProducto).orElse(null);
+        if (p == null){
+            throw new NotFoundException("No existe el producto");
+        }
+        double stockToday = p.getStock();
+        stockToday = stockToday + stock;
+        
+        productoRepository.updateStock(stockToday,p.getIdProducto());
+    }
+
+    @Override
+    public void decrementStock(double stock, Long idProducto) {
+        Producto p = productoRepository.findById(idProducto).orElse(null);
+        if (p == null){
+            throw new NotFoundException("No existe el producto");
+        }
+        double stockToday = p.getStock();
+        if(stockToday == 0)
+            throw new NotFoundException("No hay stock para el producto");
+        else
+            stockToday = stockToday - stock;
+
+        productoRepository.updateStock(stockToday,p.getIdProducto());
     }
 }
