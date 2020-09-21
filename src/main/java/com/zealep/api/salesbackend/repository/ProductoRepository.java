@@ -21,4 +21,7 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     @Query(value= "update Producto p set p.stock=?1 where p.idProducto=?2")
     void updateStock(double amount,Long idProducto);
 
+    @Query(value = "select p from Producto p where p.codigo=?1 and p.estado=?2")
+    Producto findByCodigo(String codigo,String estado);
+
 }

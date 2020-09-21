@@ -21,4 +21,5 @@ public interface ProductoService {
 
     void decrementStock(double stock,Long idProducto);
 
+    boolean isExistCodigo(String codigo);
 }

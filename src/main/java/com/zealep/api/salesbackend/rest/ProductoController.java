@@ -1,6 +1,7 @@
 package com.zealep.api.salesbackend.rest;
 
 
+import com.zealep.api.salesbackend.exception.ConflictException;
 import com.zealep.api.salesbackend.exception.NotFoundException;
 import com.zealep.api.salesbackend.model.entity.Producto;
 import com.zealep.api.salesbackend.service.ProductoService;
@@ -33,6 +34,9 @@ public class ProductoController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Producto> grabar(@RequestBody Producto producto) {
+        if(productoService.isExistCodigo(producto.getCodigo())){
+            throw new ConflictException("El codigo de producto ya existe");
+        }
         return new ResponseEntity<Producto>(productoService.save(producto), HttpStatus.CREATED);
     }
 

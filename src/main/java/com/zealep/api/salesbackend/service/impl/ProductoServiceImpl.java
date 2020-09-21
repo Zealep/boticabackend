@@ -75,4 +75,13 @@ public class ProductoServiceImpl implements ProductoService {
 
         productoRepository.updateStock(stockToday,p.getIdProducto());
     }
+
+    @Override
+    public boolean isExistCodigo(String codigo) {
+        Producto p = productoRepository.findByCodigo(codigo,Constants.ACTIVE_STATE);
+        boolean exist=false;
+        if(p!=null)
+            exist = true;
+        return exist;
+    }
 }
