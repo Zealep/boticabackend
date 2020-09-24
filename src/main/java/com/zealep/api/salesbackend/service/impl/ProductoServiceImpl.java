@@ -1,6 +1,7 @@
 package com.zealep.api.salesbackend.service.impl;
 
 
+import com.zealep.api.salesbackend.exception.BadRequestException;
 import com.zealep.api.salesbackend.exception.NotFoundException;
 import com.zealep.api.salesbackend.model.entity.Producto;
 import com.zealep.api.salesbackend.repository.ProductoRepository;
@@ -68,8 +69,8 @@ public class ProductoServiceImpl implements ProductoService {
             throw new NotFoundException("No existe el producto");
         }
         double stockToday = p.getStock();
-        if(stockToday == 0)
-            throw new NotFoundException("No hay stock para el producto");
+        if(stockToday < stock)
+            throw new BadRequestException("No hay stock para el producto " + p.getCodigo() + "-" + p.getNombre());
         else
             stockToday = stockToday - stock;
 
