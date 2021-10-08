@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -45,6 +46,16 @@ public class GastoController {
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Gasto> modificar(@RequestBody Gasto gasto) {
         return new ResponseEntity<Gasto>(gastoService.save(gasto), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/month")
+    public ResponseEntity<Double> bucarGastosMes() {
+        return new ResponseEntity<Double>(gastoService.getTotalByMes(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/today")
+    public ResponseEntity<Double> bucarGastosHoy() {
+        return new ResponseEntity<Double>(gastoService.getTotalByDia(LocalDate.now()), HttpStatus.OK);
     }
 
 

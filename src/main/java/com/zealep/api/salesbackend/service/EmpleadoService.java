@@ -15,4 +15,8 @@ public interface EmpleadoService {
     void delete(Long id);
 
     boolean isExist(Long id);
+
+    List<Empleado> findByRol(String rol);
+
+    Empleado findByUsername(String username,String clave);
 }

@@ -17,13 +17,11 @@ public class Venta implements Serializable {
     @Column(name = "id_venta")
     private Long idVenta;
 
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_documento")
-    private TipoDocumento tipoDocumento;
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
+
 
     @ManyToOne
     @JoinColumn(name = "id_empleado")
@@ -51,6 +49,12 @@ public class Venta implements Serializable {
     @Column(name = "estado")
     private String estado;
 
+    @Column(name = "cliente")
+    private String nombreCliente;
+
+    @Column(name = "documento")
+    private String documento;
+
     @OneToMany(mappedBy = "venta",cascade = CascadeType.ALL)
     private List<DetalleVenta> detallesVenta;
 
@@ -60,14 +64,6 @@ public class Venta implements Serializable {
 
     public void setIdVenta(Long idVenta) {
         this.idVenta = idVenta;
-    }
-
-    public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
     }
 
     public Cliente getCliente() {
@@ -148,5 +144,21 @@ public class Venta implements Serializable {
 
     public void setDetallesVenta(List<DetalleVenta> detallesVenta) {
         this.detallesVenta = detallesVenta;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 }

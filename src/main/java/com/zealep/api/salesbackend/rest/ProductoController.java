@@ -27,7 +27,7 @@ public class ProductoController {
         return new ResponseEntity<Producto>(productoService.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Producto>> bucarTodo() {
         return new ResponseEntity<List<Producto>>(productoService.findAll(), HttpStatus.OK);
     }
@@ -47,8 +47,18 @@ public class ProductoController {
         productoService.delete(id);
     }
 
-    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Producto> modificar(@RequestBody Producto producto) {
         return new ResponseEntity<Producto>(productoService.save(producto), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/stock-minimums",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Producto>> obtenerProductosStockMinimos() {
+        return new ResponseEntity<List<Producto>>(productoService.getStocksMinimum(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/no-stocks",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Producto>> obtenerProductosSinStock() {
+        return new ResponseEntity<List<Producto>>(productoService.getNoStock(), HttpStatus.OK);
     }
 }

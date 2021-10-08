@@ -24,4 +24,10 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     @Query(value = "select p from Producto p where p.codigo=?1 and p.estado=?2")
     Producto findByCodigo(String codigo,String estado);
 
+    @Query(value = "select p from Producto  p where p.estado=?1 and p.stock <= p.stockMinimo")
+    List<Producto> findAllStockMinimos(String estado);
+
+    @Query(value = "select p from Producto  p where p.estado=?1 and p.stock = 0 ")
+    List<Producto> findNoStock(String estado);
+
 }

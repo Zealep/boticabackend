@@ -3,9 +3,13 @@ package com.zealep.api.salesbackend.model.entity;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "empleado")
@@ -53,6 +57,15 @@ public class Empleado implements Serializable {
 
     @Column(name = "estado")
     private String estado;
+
+    @Column(name = "usuario")
+    private String usuario;
+
+    @Column(name = "clave")
+    private String clave;
+
+    @Column(name = "rol")
+    private String rol;
 
     public Long getIdEmpleado() {
         return idEmpleado;
@@ -157,4 +170,30 @@ public class Empleado implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+
 }

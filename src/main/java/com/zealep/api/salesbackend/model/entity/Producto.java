@@ -2,6 +2,7 @@ package com.zealep.api.salesbackend.model.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "producto")
@@ -36,6 +37,18 @@ public class Producto implements Serializable {
 
     @Column(name = "estado")
     private String estado;
+
+    @Column(name = "fecha_elaboracion")
+    private LocalDate fechaElaboracion;
+
+    @Column(name = "fecha_vencimiento")
+    private LocalDate fechaVencimiento;
+
+    @Column(name = "laboratorio")
+    private String laboratorio;
+
+    @Column(name = "nombre_comercial")
+    private String nombreComercial;
 
 
     public Long getIdProducto() {
@@ -108,5 +121,37 @@ public class Producto implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public LocalDate getFechaElaboracion() {
+        return fechaElaboracion;
+    }
+
+    public void setFechaElaboracion(LocalDate fechaElaboracion) {
+        this.fechaElaboracion = fechaElaboracion;
+    }
+
+    public LocalDate getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public String getLaboratorio() {
+        return laboratorio;
+    }
+
+    public void setLaboratorio(String laboratorio) {
+        this.laboratorio = laboratorio;
+    }
+
+    public String getNombreComercial() {
+        return nombreComercial;
+    }
+
+    public void setNombreComercial(String nombreComercial) {
+        this.nombreComercial = nombreComercial;
     }
 }

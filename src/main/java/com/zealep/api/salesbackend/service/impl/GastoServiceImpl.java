@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service("gastoService")
@@ -47,5 +48,15 @@ public class GastoServiceImpl implements GastoService {
     @Override
     public boolean isExist(Long id) {
         return findById(id) != null;
+    }
+
+    @Override
+    public Double getTotalByMes() {
+        return gastoRepository.findTotalMes(Constants.ACTIVE_STATE);
+    }
+
+    @Override
+    public Double getTotalByDia(LocalDate date) {
+        return gastoRepository.findTotalDia(date,Constants.ACTIVE_STATE);
     }
 }

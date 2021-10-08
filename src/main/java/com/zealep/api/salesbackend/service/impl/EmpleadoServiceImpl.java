@@ -44,4 +44,17 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     public boolean isExist(Long id) {
         return findById(id)!=null;
     }
+
+    @Override
+    public List<Empleado> findByRol(String rol) {
+        return empleadoRepository.findByRol(rol);
+    }
+
+    @Override
+    public Empleado findByUsername(String username,String clave) {
+        return empleadoRepository.findByUsername(username,clave,Constants.ACTIVE_STATE)
+                .orElse(null);
+    }
+
+
 }

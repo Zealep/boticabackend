@@ -1,6 +1,8 @@
 package com.zealep.api.salesbackend.rest;
 
 import com.zealep.api.salesbackend.exception.NotFoundException;
+import com.zealep.api.salesbackend.model.dto.RequestLogin;
+import com.zealep.api.salesbackend.model.dto.ResponseLogin;
 import com.zealep.api.salesbackend.model.entity.Empleado;
 import com.zealep.api.salesbackend.service.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,19 @@ public class EmpleadoController {
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Empleado> modificar(@RequestBody Empleado empleado) {
         return new ResponseEntity<Empleado>(empleadoService.save(empleado), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/ingresar")
+    public ResponseEntity<ResponseLogin> login(@RequestBody RequestLogin requestLogin) {
+
+        Empleado user = empleadoService.findByUsername(requestLogin.getUsuario(),requestLogin.getClave());
+        if(user!=null){
+            return new ResponseEntity<ResponseLogin>(new ResponseLogin(user,"1"), HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<ResponseLogin>(new ResponseLogin(null,"0"), HttpStatus.OK);
+        }
+
     }
 
 }

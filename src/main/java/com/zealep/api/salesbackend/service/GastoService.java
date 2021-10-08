@@ -3,6 +3,7 @@ package com.zealep.api.salesbackend.service;
 
 import com.zealep.api.salesbackend.model.entity.Gasto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface GastoService {
@@ -16,6 +17,10 @@ public interface GastoService {
     void delete(Long id);
 
     boolean isExist(Long id);
+
+    Double getTotalByMes();
+
+    Double getTotalByDia(LocalDate date);
 
 
 }

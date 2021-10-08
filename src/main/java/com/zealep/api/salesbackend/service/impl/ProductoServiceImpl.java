@@ -85,4 +85,16 @@ public class ProductoServiceImpl implements ProductoService {
             exist = true;
         return exist;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> getStocksMinimum() {
+        return productoRepository.findAllStockMinimos(Constants.ACTIVE_STATE);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> getNoStock() {
+        return productoRepository.findNoStock(Constants.ACTIVE_STATE);
+    }
 }

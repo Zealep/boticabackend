@@ -2,6 +2,7 @@ package com.zealep.api.salesbackend.rest;
 
 import com.zealep.api.salesbackend.exception.NotFoundException;
 import com.zealep.api.salesbackend.model.entity.Compra;
+import com.zealep.api.salesbackend.model.entity.DetalleCompra;
 import com.zealep.api.salesbackend.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,6 +32,22 @@ public class CompraController {
         return new ResponseEntity<List<Compra>>(compraService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/last-week")
+    public ResponseEntity<List<DetalleCompra>> bucarComprasUltimaSemana() {
+        return new ResponseEntity<List<DetalleCompra>>(compraService.getDetailsLastWeek(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/last-month")
+    public ResponseEntity<List<DetalleCompra>> bucarComprasUltimoMes() {
+        return new ResponseEntity<List<DetalleCompra>>(compraService.getDetailsLastMonth(), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/month")
+    public ResponseEntity<Double> bucarComprasMes() {
+        return new ResponseEntity<Double>(compraService.getTotalByMes(), HttpStatus.OK);
+    }
+
+
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Compra> grabar(@RequestBody Compra compra) {
         return new ResponseEntity<Compra>(compraService.save(compra), HttpStatus.CREATED);
@@ -45,6 +63,11 @@ public class CompraController {
     @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Compra> modificar(@RequestBody Compra compra) {
         return new ResponseEntity<Compra>(compraService.save(compra), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/today")
+    public ResponseEntity<Double> bucarComprasHoy() {
+        return new ResponseEntity<Double>(compraService.getTotalByDia(LocalDate.now()), HttpStatus.OK);
     }
 
 
